@@ -1,4 +1,5 @@
 using NewsTracker.Components;
+using NewsTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 // ≈÷«›… Œœ„… NewsService
-//builder.Services.AddScoped<NewsService>(provider =>
-//    new NewsService(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<NewsService>(provider =>
+    new NewsService(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

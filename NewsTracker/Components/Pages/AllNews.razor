@@ -1,0 +1,65 @@
+﻿@page "/AllNews"
+@rendermode InteractiveServer
+@inject NewsTracker.Services.NewsService NewsService
+@using NewsTracker.Model 
+
+<PageTitle>All News</PageTitle>
+
+
+@if (newsItems == null)
+{
+    <p>جارٍ تحميل البيانات...</p>
+}
+else if (newsItems.Count == 0)
+{
+    <p>لا توجد أخبار لعرضها.</p>
+}
+else
+{
+
+<div class="news-container">
+    @foreach (var news in newsItems)
+    {
+        <div class="news-card">
+            <img src="Images/Almada-logo.png" alt="صورة الخبر">
+            <div class="card-content">
+                <h2 class="card-title">@news.Title</h2>
+                <p class="card-description">
+                    @news.Content
+                </p>
+                <a href="#" class="btn-more">المزيد</a>
+                @if (news.CategoryName == "Sports")
+                {
+                    <div class="news-type sport">@news.CategoryName</div>
+                }
+                else if (news.CategoryName == "Politics")
+                {
+                    <div class="news-type politics">@news.CategoryName</div>
+                }
+                else if (news.CategoryName == "Education")
+                {
+                    <div class="news-type culture">@news.CategoryName</div>
+                }
+                else if (news.CategoryName == "Technology")
+                {
+                    <div class="news-type technology">@news.CategoryName</div>
+                }
+                else
+                {
+                        <div class="news-type politics">@news.CategoryName</div>
+                }
+
+            </div>
+        </div>
+    }
+
+</div>
+}
+@code {
+    private List<NewsItem> newsItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        newsItems = await NewsService.GetAllNewsAsync();
+    }
+}
