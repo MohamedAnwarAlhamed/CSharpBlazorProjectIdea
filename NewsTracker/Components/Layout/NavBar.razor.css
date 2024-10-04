@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /* ÊäÙíã ÇáÚäÇÕÑ ÚãæÏíğÇ */
+}
+
+.header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.navbar {
+    /* width: 100%;*/
+    background-color: #34495e;
+    color: white;
+    display: flex;
+    align-items: center;
+    /* ãÍÇĞÇÉ ÇáÚäÇÕÑ ÚãæÏíğÇ */
+    padding: 10px 20px;
+    justify-content: space-between;
+    /* ÊæÒíÚ ÇáÚäÇÕÑ ÈÔßá ãäÇÓÈ */
+}
+
+.company-name {
+    background-color: #e67e22;
+    /* áæä ÈÑÊŞÇáí */
+    padding: 10px 20px;
+    border-radius: 5px;
+    /* ÒæÇíÇ ãÏæÑÉ */
+    margin-right: 50px;
+    /* ÒíÇÏÉ ÇáãÓÇİÉ Èíä ÇáÇÓã æÇáÃíŞæäÇÊ */
+}
+
+.navbar h1 {
+    font-size: 24px;
+    margin: 0;
+    /* ÅÒÇáÉ ÇáåæÇãÔ */
+}
+
+.contact-icons {
+    display: flex;
+    align-items: center;
+    /* ãÍÇĞÇÉ ÇáÚäÇÕÑ ÚãæÏíğÇ */
+    gap: 0;
+    /* ÅÒÇáÉ ÇáãÓÇİÉ Èíä ÇáÃíŞæäÇÊ */
+    margin-right: 20px;
+    /* ÊŞáíá ÇáãÓÇİÉ Èíä ÇáÃíŞæäÇÊ æÇáŞæÇÆã */
+}
+
+    .contact-icons a {
+        color: white;
+        transition: color 0.3s, transform 0.3s;
+        /* ÅÖÇİÉ ÊÃËíÑ ÇáÊÍæíá */
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        /* ÅÒÇáÉ ÇáÎØ ÊÍÊ ÇáÃíŞæäÇÊ */
+    }
+
+        .contact-icons a:hover {
+            color: #9b59b6;
+            /* ÊÛííÑ Çááæä Åáì ÇáÈäİÓÌí */
+            transform: translateY(-5px);
+            /* ÑİÚ ÇáÃíŞæäÉ */
+        }
+
+    .contact-icons .separator {
+        width: 1px;
+        height: 25px;
+        background-color: white;
+        /* Çááæä ÇáÃÈíÖ ááÎØ ÇáÚãæÏí */
+        margin: 0 10px;
+        /* ãÓÇİÉ Èíä ÇáÃíŞæäÇÊ æÇáÎØ */
+    }
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    /* ÌÚá ÇáŞæÇÆã ÃİŞíÉ */
+    gap: 30px;
+    /* ÊŞáíá ÇáãÓÇİÉ Èíä ÇáÚäÇÕÑ */
+    margin-right: 10px;
+    margin-top: 20px;
+    /* ÊŞáíá ÇáãÓÇİÉ Èíä ÇáŞæÇÆã æÇáÕæÑÉ */
+}
+
+    .navbar ul li {
+        position: relative;
+    }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s, transform 0.3s;
+            /* ÅÖÇİÉ ÊÃËíÑ ÇáÊÍæíá */
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar ul li a i {
+                margin-left: 10px;
+                /* ãÓÇİÉ Èíä ÇáäÕ æÇáÃíŞæäÉ */
+                transition: transform 0.3s;
+                /* ÅÖÇİÉ ÊÃËíÑ ÇáÊÍæíá ááÃíŞæäÇÊ */
+            }
+
+            .navbar ul li a:hover {
+                color: #1abc9c;
+                transform: translateY(-5px);
+                /* ÑİÚ ÇáäÕ */
+            }
+
+                .navbar ul li a:hover i {
+                    transform: translateY(-5px);
+                    /* ÑİÚ ÇáÃíŞæäÉ */
+                }
+
+.profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    /* íÌÚá ÇáÕæÑÉ ãÑÈÚÉ ãÚ ÒæÇíÇ ãÏæÑÉ */
+    margin-left: 0;
+    /* íÖÚ ÇáÕæÑÉ İí ÃŞÕì Çáíãíä */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
