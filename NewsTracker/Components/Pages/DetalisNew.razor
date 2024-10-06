@@ -1,6 +1,5 @@
 ﻿@page "/DetalisNew/{newsId:int}"
-@inject NewsTracker.Services.NewsService NewsService
-@using NewsTracker.Model
+
 
 
 @if (newsItem == null)
@@ -23,13 +22,3 @@ else
 </div>
 }
 
-@code {
-    [Parameter]
-    public int newsId { get; set; }
-    private NewsItem newsItem = new NewsItem();
-
-    protected override async Task OnInitializedAsync()
-    {
-        newsItem = await NewsService.GetNewsByIdAsync2(newsId); // جلب تفاصيل الخبر
-    }
-}
