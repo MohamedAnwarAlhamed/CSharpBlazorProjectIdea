@@ -59,6 +59,15 @@ namespace NewsTracker.Services
             }
         }
 
+        public async Task<NewsItem> GetNewsByIdAsync2(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var newsItem = await connection.QuerySingleAsync<NewsItem>("SELECT n.Id, n.Title, n.Content, n.PublishedDate, c.Name AS CategoryName FROM News n JOIN Categories c ON n.CategoryId = c.Id WHERE n.Id = @Id", new { Id = id });
+                return newsItem;
+            }
+        }
+
         public async Task UpdateNewsAsync(NewsItem newsItem)
         {
             using (var connection = new SqlConnection(_connectionString))

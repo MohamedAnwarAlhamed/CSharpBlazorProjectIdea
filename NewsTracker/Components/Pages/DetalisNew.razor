@@ -1,0 +1,35 @@
+﻿@page "/DetalisNew/{newsId:int}"
+@inject NewsTracker.Services.NewsService NewsService
+@using NewsTracker.Model
+
+
+@if (newsItem == null)
+{
+    <p>جارٍ تحميل تفاصيل الخبر...</p>
+}
+else
+{
+<div class="news-detail-container">
+    <img src="https://via.placeholder.com/300x200" alt="صورة الخبر" class="news-image">
+    <div class="news-content">
+        <div class="news-title-container">
+            <h2 class="news-title">@newsItem.Title</h2>
+            <div class="news-type politics">@newsItem.CategoryName</div> <!-- نوع الخبر -->
+        </div>
+        <p class="news-description">
+            @newsItem.Content
+        </p>
+    </div>
+</div>
+}
+
+@code {
+    [Parameter]
+    public int newsId { get; set; }
+    private NewsItem newsItem = new NewsItem();
+
+    protected override async Task OnInitializedAsync()
+    {
+        newsItem = await NewsService.GetNewsByIdAsync2(newsId); // جلب تفاصيل الخبر
+    }
+}
