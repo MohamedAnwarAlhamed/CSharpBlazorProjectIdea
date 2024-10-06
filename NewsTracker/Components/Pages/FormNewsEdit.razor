@@ -1,0 +1,59 @@
+﻿@page "/FormNewsEdit/{newsId:int}"
+@rendermode InteractiveServer
+@inject NewsTracker.Services.NewsService NewsService
+@inject NavigationManager NavigationManager
+@using NewsTracker.Model
+
+
+<h3>تعديل الخبر</h3>
+
+<EditForm Model="newsItem" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>العنوان:</label>
+        <InputText @bind-Value="newsItem.Title" />
+    </div>
+    <div>
+        <label>المحتوى:</label>
+        <InputTextArea @bind-Value="newsItem.Content" />
+    </div>
+    <div>
+        <label>تاريخ النشر:</label>
+        <InputDate @bind-Value="newsItem.PublishedDate" />
+    </div>
+    <div>
+        <label>نوع الخبر:</label>
+        <select @bind="selectedCategory">
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit">تحديث الخبر</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int newsId { get; set; }
+
+    private NewsItem newsItem = new NewsItem();
+    private List<Category> categories = new List<Category>{ };
+    private int selectedCategory;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await NewsService.GetCategoriesAsync();
+        newsItem = await NewsService.GetNewsByIdAsync(newsId); // جلب الخبر للتعديل
+        selectedCategory = newsItem.CategoryId; // تعيين الفئة المحددة
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        newsItem.CategoryId = selectedCategory; // تعيين نوع الخبر
+        await NewsService.UpdateNewsAsync(newsItem); // تحديث الخبر
+        NavigationManager.NavigateTo("/Allnews"); // الانتقال إلى صفحة عرض الأخبار
+    }
+}

@@ -1,6 +1,8 @@
 ﻿@page "/AllNews"
 @rendermode InteractiveServer
 @inject NewsTracker.Services.NewsService NewsService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 @using NewsTracker.Model 
 
 <PageTitle>All News</PageTitle>
@@ -48,7 +50,8 @@ else
                 {
                         <div class="news-type politics">@news.CategoryName</div>
                 }
-
+                    <button @onclick="@(() => EditNews(news.Id))">تعديل</button>
+                    <button @onclick="@(() => DeleteNews(news.Id))" class="btn-delete">حذف</button>
             </div>
         </div>
     }
@@ -61,5 +64,24 @@ else
     protected override async Task OnInitializedAsync()
     {
         newsItems = await NewsService.GetAllNewsAsync();
+    }
+
+    private void EditNews(int newsId)
+    {
+        NavigationManager.NavigateTo($"/FormNewsEdit/{newsId}"); // الانتقال إلى صفحة التعديل
+    }
+
+    private async Task DeleteNews(int newsId)
+    {
+        if (await ConfirmDelete()) // تأكيد الحذف
+        {
+            await NewsService.DeleteNewsAsync(newsId);
+            newsItems = await NewsService.GetAllNewsAsync(); // تحديث قائمة الأخبار بعد الحذف
+        }
+    }
+
+    private async Task<bool> ConfirmDelete()
+    {
+        return await JSRuntime.InvokeAsync<bool>("confirm", "هل أنت متأكد أنك تريد حذف هذا الخبر؟");
     }
 }

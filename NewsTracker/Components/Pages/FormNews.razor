@@ -1,0 +1,58 @@
+﻿@page "/FormNews"
+@rendermode InteractiveServer
+@inject NewsTracker.Services.NewsService NewsService
+@inject NavigationManager NavigationManager
+@using NewsTracker.Model
+
+<h3>إدخال خبر جديد</h3>
+<EditForm Model="newsItem" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+<div class="form-container">
+    <div class="form-group">
+        <label>العنوان:</label>
+        <InputText @bind-Value="newsItem.Title" class="Input"/>
+    </div>
+    <div class="form-group">
+        <label>المحتوى:</label>
+        <InputTextArea @bind-Value="newsItem.Content" class="Textarea"/>
+    </div>
+    <div class="form-group">
+        <label>تاريخ النشر:</label>
+        <InputDate @bind-Value="newsItem.PublishedDate" class="Input" />
+    </div>
+    <div class="form-group">
+            <label>نوع الخبر:</label>
+            <select @bind="selectedCategory">
+                <option value="">اختر نوع الخبر</option>
+                @foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+    </div>
+    <button type="submit">إضافة الخبر</button>
+</div>
+</EditForm>
+
+@code {
+    private NewsItem newsItem = new NewsItem();
+
+    private int selectedCategory;
+    private List<Category> categories = new List<Category> { };
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await NewsService.GetCategoriesAsync();
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        newsItem.CategoryId = selectedCategory;
+        newsItem.CategoryName = "hhhhh";
+        await NewsService.AddNewsAsync(newsItem);
+        NavigationManager.NavigateTo("/AllNews"); // الانتقال إلى صفحة عرض الأخبار
+    }
+}
+

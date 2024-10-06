@@ -40,5 +40,41 @@ namespace NewsTracker.Services
                 return categories.ToList();
             }
         }
+
+        public async Task AddNewsAsync(NewsItem newsItem)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = "INSERT INTO News (Title, Content, PublishedDate, CategoryId) VALUES (@Title, @Content, @PublishedDate, @CategoryId)";
+                await connection.ExecuteAsync(sql, newsItem);
+            }
+        }
+
+        public async Task<NewsItem> GetNewsByIdAsync(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var newsItem = await connection.QuerySingleAsync<NewsItem>("SELECT * FROM News WHERE Id = @Id", new { Id = id });
+                return newsItem;
+            }
+        }
+
+        public async Task UpdateNewsAsync(NewsItem newsItem)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = "UPDATE News SET Title = @Title, Content = @Content, PublishedDate = @PublishedDate, CategoryId = @CategoryId WHERE Id = @Id";
+                await connection.ExecuteAsync(sql, newsItem);
+            }
+        }
+
+        public async Task DeleteNewsAsync(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = "DELETE FROM News WHERE Id = @Id";
+                await connection.ExecuteAsync(sql, new { Id = id });
+            }
+        }
     }
 }
