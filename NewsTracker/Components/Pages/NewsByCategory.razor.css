@@ -1,0 +1,138 @@
+.filter-buttons {
+    margin-bottom: 20px;
+}
+
+.filter-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+    .filter-button:hover {
+        background-color: #2980b9;
+        /*  €ÌÌ— «··Ê‰ ⁄‰œ «·„—Ê— */
+    }
+
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Ì”„Õ » Ê“Ì⁄ «·ﬂ—Ê  ⁄·Ï ’›Ê› „ ⁄œœ… ≈–« ·“„ «·√„— */
+    justify-content: space-between;
+    /*  Ê“Ì⁄ «·ﬂ—Ê  »‘ﬂ· „ ”«ÊÌ */
+}
+
+.news-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 10px;
+    /* „”«›… »Ì‰ «·ﬂ—Ê  */
+    width: calc(25% - 20px);
+    /* ⁄—÷ «·ﬂ—  (4 ﬂ—Ê  ›Ì «·’›) */
+    transition: transform 0.2s;
+}
+
+    .news-card:hover {
+        transform: scale(1.02);
+        /*  √ÀÌ—  ﬂ»Ì— ⁄‰œ «·„—Ê— */
+    }
+
+    .news-card img {
+        width: 100%;
+        height: auto;
+    }
+
+.card-content {
+    padding: 15px;
+    position: relative;
+    /* ·Ã⁄· ‰Ê⁄ «·Œ»— ›Ì „” ÊÏ √⁄·Ï */
+}
+
+.card-title {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.card-description {
+    font-size: 16px;
+    color: #666;
+    margin: 0 0 15px;
+    display: -webkit-box;
+    /* «” Œœ«„ Flexbox */
+    -webkit-box-orient: vertical;
+    /* «·« Ã«Â «·⁄„ÊœÌ */
+    -webkit-line-clamp: 2;
+    /* ⁄œœ «·√”ÿ— «·„—«œ ⁄—÷Â« */
+    overflow: hidden;
+    /* ≈Œ›«¡ «·„Õ ÊÏ «·“«∆œ */
+    text-overflow: ellipsis;
+    /* ≈÷«›… ... ⁄‰œ «·«ﬁ ÿ«⁄ */
+}
+
+.btn-more {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    /* ≈“«·… «·Œÿ  Õ  «·‰’ */
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: inline-block;
+    /* · ”ÂÌ· «·„Õ«–«… */
+}
+
+    .btn-more:hover {
+        background-color: #2980b9;
+        /*  €ÌÌ— «··Ê‰ ⁄‰œ «·„—Ê— */
+    }
+
+.news-type {
+    font-size: 14px;
+    color: white;
+    padding: 5px 10px;
+    /* ≈÷«›… ÕÊ«› */
+    text-align: right;
+    /* „Õ«–«… «·‰’ ≈·Ï «·Ì„Ì‰ */
+    border-radius: 5px;
+    /* “Ê«Ì« „œÊ—… */
+    display: inline-block;
+    /* ·  ‰«”» „⁄ ÿÊ· «·‰’ */
+    vertical-align: middle;
+    /* „Õ«–«… ⁄„ÊœÌ… */
+    position: absolute;
+    /* ·Ã⁄·Â« ›Ì ‰›” „” ÊÏ «·“— */
+    right: 15px;
+    /* „”«›… „‰ «·ÃÂ… «·Ì„‰Ï */
+    bottom: 15px;
+    /* „”«›… „‰ «·√”›· */
+}
+
+    .news-type.sport {
+        background-color: #2ecc71;
+        /* √Œ÷— ··—Ì«÷Ì */
+    }
+
+    .news-type.politics {
+        background-color: #e74c3c;
+        /* √Õ„— ··”Ì«”Ì */
+    }
+
+    .news-type.culture {
+        background-color: #f1c40f;
+        /* √’›— Àﬁ«›Ì */
+    }
+
+    .news-type.technology {
+        background-color: #3498db;
+        /* √“—ﬁ  ﬂ‰Ê·ÊÃÌ */
+    }

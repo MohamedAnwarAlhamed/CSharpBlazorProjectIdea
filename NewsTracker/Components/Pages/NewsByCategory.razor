@@ -1,0 +1,110 @@
+﻿@page "/NewsByCategory"
+@rendermode InteractiveServer
+@inject NewsTracker.Services.NewsService NewsService
+@using NewsTracker.Model
+@inject IJSRuntime JSRuntime
+
+<div class="filter-buttons">
+    @if (categories == null)
+    {
+        <p>جارٍ تحميل الفئات...</p>
+    }
+    else
+    {
+        @foreach (var category in categories)
+        {
+             //<button class="filter-button" @onclick="() => LoadNewsByCategory(category.Id)">@category.Name</button>
+             //<button class="filter-button" data-category="@category.Name">@category.Name</button>
+            <button class="filter-button" @onclick="@(() => FilterNews(category.Name))">@category.Name</button>
+        }
+         //<button @onclick="LoadAllNews">عرض الكل</button>
+        //<button class="filter-button" data-category="">عرض الكل</button>
+        <button class="filter-button" @onclick="@(() => FilterNews(""))">عرض الكل</button>
+    }
+</div>
+
+@if (newsItems == null)
+{
+    <p>جارٍ تحميل البيانات...</p>
+}
+else if (newsItems.Count == 0)
+{
+    <p>لا توجد أخبار لعرضها.</p>
+}
+else
+{
+
+    <div class="news-container">
+        @foreach (var news in newsItems)
+        {
+            <div class="news-card" data-category="@news.CategoryName">
+                <img src="Images/Almada-logo.png" alt="صورة الخبر">
+                <div class="card-content">
+                    <h2 class="card-title">@news.Title</h2>
+                    <p class="card-description">
+                        @news.Content
+                    </p>
+                    <a href="#" class="btn-more">المزيد</a>
+                    @if (news.CategoryName == "Sports")
+                    {
+                        <div class="news-type sport">@news.CategoryName</div>
+                    }
+                    else if (news.CategoryName == "Politics")
+                    {
+                        <div class="news-type politics">@news.CategoryName</div>
+                    }
+                    else if (news.CategoryName == "Education")
+                    {
+                        <div class="news-type culture">@news.CategoryName</div>
+                    }
+                    else if (news.CategoryName == "Technology")
+                    {
+                        <div class="news-type technology">@news.CategoryName</div>
+                    }
+                    else
+                    {
+                        <div class="news-type politics">@news.CategoryName</div>
+                    }
+
+                </div>
+            </div>
+        }
+
+    </div>
+}
+
+
+
+@code {
+        private List<NewsItem> newsItems;
+        private List<Category> categories;
+
+        // protected override async Task OnInitializedAsync()
+        // {
+        //     categories = await NewsService.GetCategoriesAsync();
+        //     await LoadAllNews();
+        // }
+
+        // private async Task LoadAllNews()
+        // {
+        //     newsItems = await NewsService.GetAllNewsAsync();
+        // }
+
+        // private async Task LoadNewsByCategory(int categoryid)
+        // {
+        //     newsItems = await NewsService.GetNewsByCategoryAsync(categoryid);
+        // }
+
+    protected override async Task OnInitializedAsync()
+    {
+        categories = await NewsService.GetCategoriesAsync();
+        newsItems = await NewsService.GetAllNewsAsync();
+    }
+
+    private async Task FilterNews(string category)
+    {
+        await JSRuntime.InvokeVoidAsync("filterNews", category, newsItems.Count);
+    }
+}
+
+
