@@ -1,0 +1,70 @@
+﻿@page "/Products"
+@rendermode InteractiveServer
+@using NewsTracker.Model
+@using NewsTracker.Services
+@inject IProductService ProductService
+
+<h3>Products</h3>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>قائمة المنتجات</h3>
+            <ul class="list-group">
+                @foreach (var product in products)
+                {
+                    <li class="list-group-item">
+                        <button @onclick="@(() => SelectProduct(product))">اضافة</button>
+                        <img src="" alt="@product.Name" style="width:50px; height:50px;" />
+                        @product.Name - @product.Price
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h3>المنتجات المختارة</h3>
+            <ul class="list-group">
+                @foreach (var selectedProduct in selectedProducts)
+                {
+                    <li class="list-group-item">
+                        @selectedProduct.Name - @selectedProduct.Price
+                        <button @onclick="() => RemoveProduct(selectedProduct)" class="btn btn-danger btn-sm float-end">إزالة</button>
+                    </li>
+                }
+            </ul>
+            <h4>الإجمالي: @total</h4>
+        </div>
+    </div>
+
+</div>
+@code {
+    private List<Product> products = new List<Product>();
+    private List<Product> selectedProducts = new List<Product>();
+    private decimal total;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAsync();
+    }
+
+    private void SelectProduct(Product product)
+    {
+        if (!selectedProducts.Contains(product))
+        {
+        }
+            selectedProducts.Add(product);
+        foreach(var item in selectedProducts)
+        {
+            Console.WriteLine(item.Name);
+        }
+        total = selectedProducts.Sum(p => p.Price); // احسب إجمالي الأسعار
+    }
+
+    private void RemoveProduct(Product product)
+    {
+        selectedProducts.Remove(product);
+        total = selectedProducts.Sum(p => p.Price); // احسب إجمالي الأسعار بعد الإزالة
+    }
+}
